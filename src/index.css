@@ -17,6 +17,9 @@ body {
 }
 
 /* Headings */
+:root {
+  --font-heading: "Space Grotesk", sans-serif;
+}
 
 h1,
 h2,
