@@ -12,9 +12,6 @@ function Projects() {
 
         <div className="mb-24">
 
-          <p className="text-blue-400">
-            Portfolio
-          </p>
 
           <h2 className="mt-2 text-5xl font-bold">
             Featured Projects
