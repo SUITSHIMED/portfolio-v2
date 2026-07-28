@@ -24,7 +24,7 @@ export const projects: Project[] = [
     ],
 
     images: [
-  "/images/projects/portfolio/portfolio.jpeg",
+  "/images/projects/portfolio/portfolio.png",
 ],
 
     github: "https://github.com/SUITSHIMED/portfolio-v2",
