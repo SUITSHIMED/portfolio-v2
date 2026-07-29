@@ -54,8 +54,8 @@ function ProjectItem({
   return (
     <article
       className={`
-        grid items-center gap-16
-        lg:grid-cols-2
+        grid items-center gap-8
+        lg:grid-cols-2 lg:gap-16
         ${reverse ? "lg:[&>*:first-child]:order-2" : ""}
       `}
     >
@@ -66,25 +66,25 @@ function ProjectItem({
           {project.category}
         </p>
 
-        <h3 className="mt-3 text-4xl font-bold">
+        <h3 className="mt-3 text-3xl font-bold sm:text-4xl">
           {project.title}
         </h3>
 
-        <p className="mt-6 leading-8 text-zinc-400">
+        <p className="mt-6 text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
           {project.description}
         </p>
         <div className="mt-8 space-y-3">
   {project.features.map((feature) => (
     <div
       key={feature}
-      className="flex items-center gap-3"
+      className="flex items-start gap-3"
     >
       <CheckCircle2
         size={18}
         className="text-blue-400"
       />
 
-      <span className="text-zinc-300">
+      <span className="text-sm text-zinc-300 sm:text-base">
         {feature}
       </span>
     </div>
@@ -108,14 +108,14 @@ function ProjectItem({
     </span>
   ))}
 </div>
-<div className="mt-10 flex flex-wrap gap-4">
+<div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
   {project.github && (
     <a
       href={project.github}
       target="_blank"
       rel="noreferrer"
       className="
-        flex items-center gap-2
+        flex items-center justify-center gap-2
         rounded-lg
         bg-white
         px-5
@@ -136,7 +136,7 @@ function ProjectItem({
       target="_blank"
       rel="noreferrer"
       className="
-        flex items-center gap-2
+        flex items-center justify-center gap-2
         rounded-lg
         border
         border-zinc-700
@@ -155,13 +155,13 @@ function ProjectItem({
 <div className="flex justify-center">
   <div className="w-full max-w-[36rem] rounded-3xl border border-zinc-800/80 bg-zinc-900/70 p-3 shadow-[0_0_40px_rgba(0,0,0,0.25)]">
     {project.images?.length > 0 ? (
-      <div className="flex gap-3 overflow-x-hidden pb-2">
+      <div className="grid gap-3 pb-2 sm:grid-cols-2 lg:grid-cols-1">
         {project.images.map((image, index) => (
           <button
             key={`${project.id}-${image}-${index}`}
             type="button"
             onClick={() => openImage(image, index)}
-            className="group relative min-w-[10.5rem] flex-1 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-left"
+            className="group relative min-w-0 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-left"
           >
             <img
               src={image}
@@ -198,11 +198,11 @@ function ProjectItem({
         <X size={18} />
       </button>
 
-      <div className="flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
         <button
           type="button"
           onClick={showPrevImage}
-          className="mr-3 rounded-full border border-zinc-700 bg-zinc-900/80 p-2 text-zinc-200 transition hover:border-blue-400 hover:text-white"
+          className="rounded-full border border-zinc-700 bg-zinc-900/80 p-2 text-zinc-200 transition hover:border-blue-400 hover:text-white"
         >
           <ChevronLeft size={20} />
         </button>
@@ -216,7 +216,7 @@ function ProjectItem({
         <button
           type="button"
           onClick={showNextImage}
-          className="ml-3 rounded-full border border-zinc-700 bg-zinc-900/80 p-2 text-zinc-200 transition hover:border-blue-400 hover:text-white"
+          className="rounded-full border border-zinc-700 bg-zinc-900/80 p-2 text-zinc-200 transition hover:border-blue-400 hover:text-white"
         >
           <ChevronRight size={20} />
         </button>

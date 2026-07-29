@@ -5,7 +5,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="bg-zinc-950 py-32"
+      className="bg-zinc-950 py-20 sm:py-24 lg:py-32"
     >
       <Container>
         <div className="mx-auto max-w-3xl text-center">
@@ -14,17 +14,17 @@ function Contact() {
             Contact
           </p>
 
-          <h2 className="mt-4 text-5xl font-bold">
+          <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
             Let's Build Something Great
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-zinc-400">
+          <p className="mt-6 text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8">
             I'm currently looking for junior opportunities, freelance projects,
             and collaborations. If you have an idea or an opportunity, I'd love
             to hear from you.
           </p>
 
-          <div className="mt-12 flex flex-wrap justify-center gap-5">
+          <div className="mt-12 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap sm:gap-5">
 
             <a
               href="mailto:mohamedlakhrouf@gmail.com"

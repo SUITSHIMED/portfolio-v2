@@ -6,12 +6,12 @@ function Skills() {
   return (
     <section
       id="skills"
-      className="bg-zinc-950 py-32"
+      className="bg-zinc-950 py-20 sm:py-24 lg:py-32"
     >
       <Container>
 
-        <div className="mb-16">
-          <h2 className="text-5xl font-bold">
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-4xl font-bold sm:text-5xl">
             Skills
           </h2>
 

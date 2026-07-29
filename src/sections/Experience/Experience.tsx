@@ -54,19 +54,17 @@ function Experience() {
   return (
     <section
       id="experience"
-      className="py-32 bg-black"
+      className="bg-black py-20 sm:py-24 lg:py-32"
     >
       <Container>
 
-        <div className="mb-20">
+        <div className="mb-12 sm:mb-16 lg:mb-20">
 
-    
-
-          <h2 className="mt-3 text-5xl font-bold">
+          <h2 className="mt-3 text-4xl font-bold sm:text-5xl">
             Experience & Education
           </h2>
 
-          <p className="mt-5 max-w-2xl text-zinc-400">
+          <p className="mt-5 max-w-2xl text-sm text-zinc-400 sm:text-base">
             My transition into full-stack mobile development through
             continuous learning and real-world projects.
           </p>
@@ -79,14 +77,14 @@ function Experience() {
 
             <div
               key={item.title}
-              className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8"
+              className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8"
             >
 
               <span className="text-blue-400 font-semibold">
                 {item.year}
               </span>
 
-              <h3 className="mt-2 text-2xl font-bold">
+              <h3 className="mt-2 text-xl font-bold sm:text-2xl">
                 {item.title}
               </h3>
 
@@ -94,7 +92,7 @@ function Experience() {
                 {item.company}
               </p>
 
-              <p className="mt-6 text-zinc-400 leading-8">
+              <p className="mt-6 text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
                 {item.description}
               </p>
 

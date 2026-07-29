@@ -4,20 +4,20 @@ function About() {
   return (
     <section
       id="about"
-      className="bg-zinc-900 py-32"
+      className="bg-zinc-900 py-20 sm:py-24 lg:py-32"
     >
       <Container>
 
-        <div className="mb-16">
-          <h2 className="text-5xl font-bold">About Me</h2>
+        <div className="mb-12 sm:mb-16">
+          <h2 className="text-4xl font-bold sm:text-5xl">About Me</h2>
           <p className="mt-4 max-w-xl text-zinc-400">
             Get to know me a little better.
           </p>
         </div>
 
-        <div className="grid gap-16 lg:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
 
-          <div className="space-y-6 text-lg leading-8 text-zinc-300">
+          <div className="space-y-6 text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">
 
             <p>
               I'm Mohamed Lakhrouf, a Full Stack Mobile Developer passionate
@@ -40,35 +40,35 @@ function About() {
 
           </div>
 
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8">
 
-            <h3 className="mb-8 text-2xl font-semibold">
+            <h3 className="mb-8 text-xl font-semibold sm:text-2xl">
               Quick Facts
             </h3>
 
             <div className="space-y-5">
 
-              <div className="flex justify-between border-b border-zinc-800 pb-3">
+              <div className="flex flex-col gap-2 border-b border-zinc-800 pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-zinc-500">Location</span>
                 <span>Morocco</span>
               </div>
 
-              <div className="flex justify-between border-b border-zinc-800 pb-3">
+              <div className="flex flex-col gap-2 border-b border-zinc-800 pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-zinc-500">Role</span>
                 <span>Full Stack Mobile Developer</span>
               </div>
 
-              <div className="flex justify-between border-b border-zinc-800 pb-3">
+              <div className="flex flex-col gap-2 border-b border-zinc-800 pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-zinc-500">Main Stack</span>
                 <span>React Native</span>
               </div>
 
-              <div className="flex justify-between border-b border-zinc-800 pb-3">
+              <div className="flex flex-col gap-2 border-b border-zinc-800 pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-zinc-500">Languages</span>
                 <span>Arabic • English • French</span>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="text-zinc-500">Status</span>
                 <span className="text-green-400">
                   Available
