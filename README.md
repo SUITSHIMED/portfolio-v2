@@ -56,7 +56,7 @@ npm run lint
 
 - `src/` — main source files
 - `src/components/` — reusable UI components
-- `src/hooks/sections/` — page sections
+- `src/sections/` — page sections
 - `src/data/` — navigation, projects, skills, and tech data
 - `public/` — static assets
 
