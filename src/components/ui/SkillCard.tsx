@@ -14,7 +14,7 @@ function SkillCard({ title, skills }: SkillCardProps) {
         {skills.map((skill) => (
           <span
             key={skill}
-            className="rounded-full border border-zinc-700 px-3 py-2 text-sm text-zinc-300"
+            className="rounded-full border border-zinc-700 px-3 py-2 text-sm text-zinc-300 badge-animate"
           >
             {skill}
           </span>

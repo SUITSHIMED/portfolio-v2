@@ -1,6 +1,7 @@
 import Container from "@/components/ui/Container";
 import ProjectItem from "@/components/projects/ProjectItem";
 import { projects } from "@/data/projects";
+import Reveal from "@/components/common/Reveal";
 
 function Projects() {
   return (
@@ -11,16 +12,16 @@ function Projects() {
       <Container>
 
         <div className="mb-12 sm:mb-16 lg:mb-24">
+          <Reveal>
+            <h2 className="mt-2 text-4xl font-bold sm:text-5xl">
+              Featured Projects
+            </h2>
 
-          <h2 className="mt-2 text-4xl font-bold sm:text-5xl">
-            Featured Projects
-          </h2>
-
-          <p className="mt-5 max-w-2xl text-sm text-zinc-400 sm:text-base">
-            A selection of applications I've designed and developed using
-            React Native, Node.js, PostgreSQL, and modern web technologies.
-          </p>
-
+            <p className="mt-5 max-w-2xl text-sm text-zinc-400 sm:text-base">
+              A selection of applications I've designed and developed using
+              React Native, Node.js, PostgreSQL, and modern web technologies.
+            </p>
+          </Reveal>
         </div>
 
         <div className="space-y-16 sm:space-y-24 lg:space-y-32">

@@ -32,3 +32,118 @@ h5,
 h6 {
   font-family: "Space Grotesk", sans-serif;
 }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  background: #111827;
+  color: #fff;
+  z-index: 60;
+  border-radius: 6px;
+}
+
+/* Focus-visible for keyboard users */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.18);
+  border-radius: 6px;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Floating background particles used in Hero */
+@keyframes floatY {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: .9 }
+  50% { transform: translateY(-24px) translateX(6px) scale(1.05); opacity: .7 }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: .9 }
+}
+
+.particle-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgba(99,102,241,0.9), rgba(59,130,246,0.12));
+  filter: blur(8px);
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+.particle--small { width: 10px; height: 10px; }
+.particle--md { width: 28px; height: 28px; }
+.particle--lg { width: 68px; height: 68px; }
+
+.particle--1 { left: 8%; top: 20%; animation: floatY 8s ease-in-out infinite; }
+.particle--2 { left: 72%; top: 10%; animation: floatY 10s ease-in-out 1s infinite; }
+.particle--3 { left: 45%; top: 70%; animation: floatY 9s ease-in-out 0.4s infinite; }
+.particle--4 { left: 18%; top: 50%; animation: floatY 12s ease-in-out 0.8s infinite; }
+.particle--5 { left: 86%; top: 60%; animation: floatY 11s ease-in-out 0.2s infinite; }
+.particle--6 { left: 55%; top: 30%; animation: floatY 14s ease-in-out 0.6s infinite; }
+
+/* Tech radar styles */
+.tech-radar {
+  width: 18rem;
+  height: 18rem;
+  position: relative;
+}
+
+.tech-radar .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.radar-rotate {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  animation: radarSpin 28s linear infinite;
+}
+
+.radar-rotate.paused,
+.tech-radar:hover .radar-rotate {
+  animation-play-state: paused;
+}
+
+/* Skill badge subtle pulse for mobile visibility */
+@keyframes badgePulse {
+  0% { transform: scale(1); opacity: 1 }
+  50% { transform: scale(1.03); opacity: 0.9 }
+  100% { transform: scale(1); opacity: 1 }
+}
+
+.badge-animate {
+  animation: badgePulse 2.8s ease-in-out infinite;
+}
