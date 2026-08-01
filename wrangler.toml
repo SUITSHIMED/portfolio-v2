@@ -1,4 +1,5 @@
 name = "portfolio"
+main = "workers-site/index.js"
 compatibility_date = "2026-08-01"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = true
