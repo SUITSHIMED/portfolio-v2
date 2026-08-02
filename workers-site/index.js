@@ -13,9 +13,10 @@ async function handleEvent(event) {
       event.request.method === "GET" && !url.pathname.includes(".");
 
     if (isSpaRoute) {
-      return await getAssetFromKV(
-        new Request(`${url.origin}/index.html`, event.request)
-      );
+      return await getAssetFromKV(event, {
+        mapRequestToAsset: () =>
+          new Request(`${url.origin}/index.html`, event.request),
+      });
     }
 
     return new Response("Not found", { status: 404 });
