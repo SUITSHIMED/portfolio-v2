@@ -1,7 +1,10 @@
 import { Mail } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import Container from "@/components/ui/Container";
 
 function Contact() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="contact"
@@ -11,17 +14,15 @@ function Contact() {
         <div className="mx-auto max-w-3xl text-center">
 
           <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
-            Contact
+            {t("contact.label")}
           </p>
 
           <h2 className="mt-4 text-4xl font-bold sm:text-5xl">
-            Let's Build Something Great
+            {t("contact.title")}
           </h2>
 
           <p className="mt-6 text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8">
-            I'm currently looking for junior opportunities, freelance projects,
-            and collaborations. If you have an idea or an opportunity, I'd love
-            to hear from you.
+            {t("contact.description")}
           </p>
 
           <div className="mt-12 flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap sm:gap-5">
@@ -31,7 +32,7 @@ function Contact() {
               className="flex items-center gap-3 rounded-xl border border-zinc-700 px-6 py-4 transition hover:border-blue-400"
             >
               <Mail size={20} />
-              <span>Email Me</span>
+              <span>{t("contact.email")}</span>
             </a>
 
             <a

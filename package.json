@@ -11,14 +11,17 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.2.0",
     "@tailwindcss/vite": "^4.3.3",
+    "framer-motion": "^12.43.0",
+    "i18next": "^26.3.6",
     "lucide-react": "^1.27.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-i18next": "^17.0.11",
+    "react-router-dom": "^7.18.2",
     "slim": "^0.11.1",
-    "framer-motion": "^12.43.0",
-    "tailwindcss": "^4.3.3",
-    "@cloudflare/kv-asset-handler": "^0.2.0"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

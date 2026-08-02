@@ -1,4 +1,5 @@
 import Container from "@/components/ui/Container";
+import { useTranslation } from "react-i18next";
 
 const experiences = [
   {
@@ -51,6 +52,8 @@ const experiences = [
 ];
 
 function Experience() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="experience"
@@ -61,12 +64,11 @@ function Experience() {
         <div className="mb-12 sm:mb-16 lg:mb-20">
 
           <h2 className="mt-3 text-4xl font-bold sm:text-5xl">
-            Experience & Education
+            {t("experience.title")}
           </h2>
 
           <p className="mt-5 max-w-2xl text-sm text-zinc-400 sm:text-base">
-            My transition into full-stack mobile development through
-            continuous learning and real-world projects.
+            {t("experience.description")}
           </p>
 
         </div>
