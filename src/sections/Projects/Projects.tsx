@@ -2,41 +2,43 @@ import Container from "@/components/ui/Container";
 import ProjectItem from "@/components/projects/ProjectItem";
 import { projects } from "@/data/projects";
 import Reveal from "@/components/common/Reveal";
+import { useTranslation } from "react-i18next";
 
 function Projects() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="projects"
-      className="bg-zinc-950 py-20 sm:py-24 lg:py-32"
+      className="relative py-24 sm:py-28 lg:py-36"
     >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
+
       <Container>
-
-        <div className="mb-12 sm:mb-16 lg:mb-24">
-          <Reveal>
-            <h2 className="mt-2 text-4xl font-bold sm:text-5xl">
-              Featured Projects
-            </h2>
-
-            <p className="mt-5 max-w-2xl text-sm text-zinc-400 sm:text-base">
-              A selection of applications I've designed and developed using
-              React Native, Node.js, PostgreSQL, and modern web technologies.
+        {/* Header */}
+        <Reveal>
+          <div className="mb-16 sm:mb-20 lg:mb-28">
+            <span className="section-label">{t("projects.label")}</span>
+            
+            <p className="mt-4 max-w-2xl text-base text-zinc-400">
+              {t("projects.description")}
             </p>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
-        <div className="space-y-16 sm:space-y-24 lg:space-y-32">
-
+        <div className="space-y-24 sm:space-y-32 lg:space-y-40">
           {projects.map((project, index) => (
             <ProjectItem
               key={project.id}
               project={project}
               reverse={index % 2 !== 0}
+              index={index}
             />
           ))}
-
         </div>
-
       </Container>
+
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
     </section>
   );
 }

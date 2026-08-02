@@ -1,6 +1,8 @@
 import Container from "@/components/ui/Container";
+import { useTranslation } from "react-i18next";
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="border-t border-zinc-800 bg-black py-8">
       <Container>
@@ -9,11 +11,11 @@ function Footer() {
 
           <p>
             © {new Date().getFullYear()} Mohamed Lakhrouf.
-            All rights reserved.
+            {t("footer.rights")}
           </p>
 
           <p className="flex items-center gap-2">
-            Built with React, TypeScript & Tailwind CSS
+            {t("footer.builtWith")}
           </p>
 
         </div>
