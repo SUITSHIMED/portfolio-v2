@@ -59,6 +59,8 @@ export default {
   experience: {
     title: "Experience & Education",
     description: "My transition into full-stack mobile development through continuous learning and real-world projects.",
+    groupEducation: "Education",
+    groupExperience: "Experience",
   },
   contact: {
     label: "Contact",

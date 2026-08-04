@@ -1,316 +1,195 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Mail, ArrowRight, GitBranch, Send } from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
 import { useTranslation } from "react-i18next";
 import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
+import BrowserMockup from "@/components/ui/BrowserMockup";
+import PhoneMockup from "@/components/ui/PhoneMockup";
+import { EASE } from "@/lib/motion";
 
-/* phone slides */
-const phoneSlides = [
+const socials = [
+  { label: "GitHub", href: "https://github.com/SUITSHIMED", icon: GithubIcon },
   {
-    src: "/images/projects/cardiolog/chart.jpeg",
-    label: "CardioLog",
-    sub: "Blood Pressure Tracker",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/mohamed-l-216670212/",
+    icon: LinkedinIcon,
   },
-  {
-    src: "/images/projects/casalivraison/casaliv1.png",
-    label: "CasaLivraison",
-    sub: "Food Delivery App",
-  },
-  {
-    src: "/images/projects/speakiq/speakiq1.jpeg",
-    label: "SpeakIQ",
-    sub: "AI English Speaking",
-  },
+  { label: "Email", href: "mailto:mohamedlakhrouf@gmail.com", icon: Mail },
 ];
-
-/* Tech stack  */
-const techPills = [
-  "React Native",
-  "TypeScript",
-  "Node.js",
-  "Expo",
-  "PostgreSQL",
-  "Docker",
-];
-
-/** Hero stats */
-const stats = [
-  { value: "3+", key: "projects" },
-  { value: "1+", key: "learning" },
-  { value: "3", key: "languages" },
-];
-
-function PhoneMockup() {
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % phoneSlides.length);
-    }, 3200);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div className="relative flex flex-col items-center">
-      {/* Outer glow ring */}
-      <div
-        className="relative"
-        style={{ filter: "drop-shadow(0 0 40px rgba(59,130,246,0.15))" }}
-      >
-        {/* Phone frame */}
-        <div className="phone-mockup">
-          <div className="phone-screen">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={current}
-                src={phoneSlides[current].src}
-                alt={phoneSlides[current].label}
-                initial={{ opacity: 0, scale: 1.04 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="h-full w-full object-cover object-top"
-                loading="eager"
-              />
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-
-      {/* Project label below phone */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.3 }}
-          className="mt-5 text-center"
-        >
-          <p className="text-sm font-semibold text-zinc-200">
-            {phoneSlides[current].label}
-          </p>
-          <p className="text-xs text-zinc-500 mt-0.5">
-            {phoneSlides[current].sub}
-          </p>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Slide dots */}
-      <div className="mt-3 flex gap-1.5" aria-label="Project slides">
-        {phoneSlides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => setCurrent(i)}
-            aria-label={`View ${phoneSlides[i].label}`}
-            className={`h-1 rounded-full transition-all duration-300 ${i === current
-              ? "w-5 bg-blue-400"
-              : "w-1.5 bg-zinc-600 hover:bg-zinc-400"
-              }`}
-          />
-        ))}
-      </div>
-
-      {/* Floating tech badges */}
-      <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-14 top-16 glass rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 shadow-lg hidden lg:block"
-      >
-        <span className="text-blue-400">⚛</span> React Native
-      </motion.div>
-
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="absolute -right-12 top-28 glass rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 shadow-lg hidden lg:block"
-      >
-        <span className="text-green-400">▶</span> Node.js
-      </motion.div>
-
-      <motion.div
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -left-16 bottom-32 glass rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 shadow-lg hidden lg:block"
-      >
-        <span className="text-blue-300">🐘</span> PostgreSQL
-      </motion.div>
-
-      <motion.div
-        animate={{ y: [0, 6, 0] }}
-        transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-        className="absolute -right-14 bottom-40 glass rounded-xl px-3 py-2 text-xs font-medium text-zinc-300 shadow-lg hidden lg:block"
-      >
-        <span className="text-sky-400">🐳</span> Docker
-      </motion.div>
-    </div>
-  );
-}
 
 function Hero() {
   const { t } = useTranslation();
+  const ref = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const deviceY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const deviceRotate = useTransform(scrollYProgress, [0, 1], [0, -3]);
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0.3]);
 
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center overflow-hidden pt-20 pb-16"
+      ref={ref}
+      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pt-28"
     >
-      <Container>
-        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
-          {/* ── LEFT SIDE ── */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-
-           
-
-            {/* Name */}
-            <motion.h1
-              className="mt-7 font-heading text-5xl font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
-            >
-              Mohamed{" "}
-              <span className="gradient-text">Lakhrouf</span>
-            </motion.h1>
-
-            {/* Title */}
-            <motion.p
-              className="mt-4 text-lg font-medium text-zinc-400 sm:text-xl"
-              initial={{ y: 16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.18 }}
-            >
-              {t("hero.title")}
-            </motion.p>
-
-            {/* Bio */}
-            <motion.p
-              className="mt-5 max-w-lg text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8"
-              initial={{ y: 14, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.26 }}
-            >
-              {t("hero.intro")}
-            </motion.p>
-
-            {/* Stats */}
+      <Container size="wide" className="relative z-10 pb-10">
+        {/* ── Row 1: headline + device composition ── */}
+        <div className="grid grid-cols-12 items-center gap-y-10 lg:gap-x-4">
+          <div className="col-span-12 lg:col-span-7">
             <motion.div
-              className="mt-8 flex gap-4 flex-wrap justify-center lg:justify-start"
-              initial={{ y: 14, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.34 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              className="availability-pill mb-8"
             >
-              {stats.map((stat) => (
-                <div key={stat.key} className="stat-card min-w-[90px]">
-                  <p className="text-2xl font-bold gradient-text leading-tight">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-zinc-500 mt-1 font-medium">
-                    {t(`hero.stats.${stat.key}`)}
-                  </p>
-                </div>
-              ))}
+              <span className="availability-dot" />
+              Open to work
             </motion.div>
 
-            {/* Tech pills */}
-            <motion.div
-              className="mt-7 flex flex-wrap justify-center gap-2 lg:justify-start"
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.42 }}
-            >
-              {techPills.map((tech, i) => (
+            <h1 className="display">
+              <span className="block overflow-hidden">
                 <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + i * 0.06, duration: 0.3 }}
-                  className="skill-badge text-xs"
+                  className="block"
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 1, ease: EASE, delay: 0.15 }}
                 >
-                  {tech}
+                  Mohamed
                 </motion.span>
-              ))}
-            </motion.div>
-
-            {/* CTA buttons */}
-            <motion.div
-              className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start"
-              initial={{ y: 12, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.52 }}
-            >
-              <a href="#projects" className="btn-primary">
-                {t("hero.cta")}
-                <ArrowRight size={15} />
-              </a>
-
-            </motion.div>
-
-            {/* Social links */}
-            <motion.div
-              className="mt-7 flex items-center gap-3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.62 }}
-            >
-              <a
-                href="https://github.com/SUITSHIMED"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub profile"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700/70 text-zinc-400 transition hover:border-zinc-500 hover:text-white hover:bg-zinc-800/50"
-              >
-                <GitBranch size={16} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/mohamed-l-216670212/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn profile"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700/70 text-zinc-400 transition hover:border-blue-500/50 hover:text-blue-400 hover:bg-blue-500/05"
-              >
-                <Send size={16} />
-              </a>
-              <a
-                href="mailto:mohamedlakhrouf@gmail.com"
-                aria-label="Send email"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700/70 text-zinc-400 transition hover:border-zinc-500 hover:text-white hover:bg-zinc-800/50"
-              >
-                <Mail size={16} />
-              </a>
-
-              <span className="ml-2 text-xs text-zinc-600">
-                mohamedlakhrouf@gmail.com
               </span>
-            </motion.div>
+              <span className="block overflow-hidden">
+                <motion.span
+                  className="outline-text block"
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 1, ease: EASE, delay: 0.28 }}
+                >
+                  Lakhrouf
+                </motion.span>
+              </span>
+            </h1>
           </div>
 
-          {/* ── RIGHT SIDE — Phone Mockup ── */}
+          {/* Device composition */}
           <motion.div
-            className="flex justify-center lg:justify-end"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
+            className="col-span-12 flex justify-center lg:col-span-5 lg:justify-end"
+            style={{ opacity: fade }}
           >
             <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              initial={{ opacity: 0, y: 60, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1, ease: EASE, delay: 0.6 }}
+              style={{ y: deviceY, rotate: deviceRotate }}
+              className="relative pr-2 pt-6 sm:pt-8"
             >
-              <PhoneMockup />
+              <div className="w-[19rem] -rotate-2 sm:w-[24rem] lg:ml-6">
+                <BrowserMockup
+                  src="/images/projects/portfolio/portfolio.png"
+                  alt="Portfolio website preview"
+                  eager
+                  aspect="aspect-[946/602]"
+                  url="mohamedalkhrouf.dev"
+                />
+              </div>
+
+              <div className="absolute -right-2 -top-1 z-10 rotate-3 origin-top-right scale-[0.4] sm:-right-4 sm:-top-4 sm:scale-[0.44]">
+                <PhoneMockup
+                  src="/images/projects/speakiq/speakiq1.jpeg"
+                  alt="SpeakIQ app preview"
+                  eager
+                />
+              </div>
+
+              <div className="card absolute -bottom-6 left-4 z-20 w-48 p-3.5 sm:left-6">
+                <div className="flex items-center justify-between">
+                  <span className="mono-label">Current</span>
+                  <span className="availability-dot" />
+                </div>
+                <p className="mt-2 text-sm font-medium text-text">
+                  Building mobile & web apps
+                </p>
+                <p className="mt-0.5 font-mono text-[11px] text-faint">
+                  React Native · Node.js
+                </p>
+              </div>
             </motion.div>
           </motion.div>
-
         </div>
-      </Container>
 
-      {/* Bottom fade */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-zinc-950/60 to-transparent" />
+        {/* ── Row 2: lede + CTA ── */}
+        <motion.div
+          className="mt-14 grid grid-cols-12 items-end gap-x-4 sm:mt-20"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: EASE, delay: 0.5 }}
+        >
+          <div className="col-span-12 lg:col-span-7">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-frost">
+              {t("hero.title")}
+            </p>
+            <p className="lede mt-4 max-w-lg text-pretty">{t("hero.intro")}</p>
+          </div>
+
+          <div className="col-span-12 mt-8 flex flex-wrap items-center gap-3 lg:col-span-5 lg:mt-0 lg:justify-end">
+            <Button href="#projects" variant="primary">
+              {t("hero.cta")}
+              <ArrowUpRight />
+            </Button>
+            <Button href="#contact" variant="ghost">
+              Get in touch
+            </Button>
+          </div>
+        </motion.div>
+
+        {/* ── Bottom meta ── */}
+        <motion.div
+          className="mt-16 flex flex-col gap-5 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.9 }}
+        >
+          <p className="mono-label hidden sm:block">
+            Based in Morocco — Working across time zones
+          </p>
+
+          <div className="flex items-center gap-2">
+            {socials.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="group flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-all duration-300 hover:border-frost/50 hover:bg-frost-dim hover:text-frost-bright"
+              >
+                <Icon
+                  size={15}
+                  className="transition-transform duration-300 group-hover:-translate-y-0.5"
+                />
+              </a>
+            ))}
+          </div>
+
+          <a
+            href="#about"
+            className="group flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted transition-colors hover:text-text"
+          >
+            Scroll
+            <motion.span
+              animate={{ y: [0, 5, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowDown size={14} />
+            </motion.span>
+          </a>
+        </motion.div>
+      </Container>
     </section>
   );
 }
