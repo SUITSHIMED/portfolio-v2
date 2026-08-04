@@ -59,6 +59,8 @@ export default {
   experience: {
     title: "الخبرة والتعليم",
     description: "انتقالي نحو تطوير تطبيقات جوال full stack من خلال التعلم المستمر والمشاريع العملية.",
+    groupEducation: "التعليم",
+    groupExperience: "الخبرة",
   },
   contact: {
     label: "تواصل",

@@ -1,47 +1,142 @@
-import Container from "@/components/ui/Container";
-import SkillCard from "@/components/ui/SkillCard";
-import { skillCategories } from "@/data/skills";
-import Reveal from "@/components/common/Reveal";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Monitor,
+  Smartphone,
+  Server,
+  Database,
+  Wrench,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
+import Container from "@/components/ui/Container";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { skillCategories, type SkillCategory, type SkillLevel } from "@/data/skills";
+import { EASE } from "@/lib/motion";
+
+const ICONS: Record<string, LucideIcon> = {
+  Monitor,
+  Smartphone,
+  Server,
+  Database,
+  Wrench,
+  Sparkles,
+};
+
+const LEVEL_DOT: Record<SkillLevel, string> = {
+  advanced: "bg-frost",
+  intermediate: "bg-violet",
+  beginner: "bg-faint",
+};
+
+const LEVEL_LABEL: Record<SkillLevel, string> = {
+  advanced: "Advanced",
+  intermediate: "Intermediate",
+  beginner: "Beginner",
+};
+
+function SkillRow({ category, index }: { category: SkillCategory; index: number }) {
+  const [open, setOpen] = useState(index === 0);
+  const Icon = ICONS[category.icon] ?? Monitor;
+
+  return (
+    <div className="border-t border-line last:border-b">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="group grid w-full grid-cols-[auto_1fr_auto] items-center gap-4 py-6 text-left sm:gap-6 sm:py-7"
+      >
+        <span className="font-mono text-xs text-faint transition-colors duration-300 group-hover:text-frost">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        <span className="flex items-center gap-4 sm:gap-5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-surface text-muted transition-colors duration-300 group-hover:border-frost/40 group-hover:text-frost">
+            <Icon size={16} />
+          </span>
+          <span className="text-xl font-medium tracking-tight text-text transition-colors duration-300 sm:text-2xl">
+            {category.title}
+          </span>
+        </span>
+
+        <span className="flex items-center gap-4">
+          <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-faint sm:block">
+            {category.skills.length} tools
+          </span>
+          <motion.span
+            animate={{ rotate: open ? 45 : 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-muted transition-colors group-hover:text-text"
+          >
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+              <path d="M5.5 1v9M1 5.5h9" stroke="currentColor" strokeWidth="1.1" />
+            </svg>
+          </motion.span>
+        </span>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: EASE }}
+            className="overflow-hidden"
+          >
+            <div className="pb-7 pl-8 sm:pl-16">
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill, i) => (
+                  <motion.span
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.35, ease: EASE, delay: 0.05 * i }}
+                    className="tag"
+                  >
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${LEVEL_DOT[skill.level]}`}
+                    />
+                    {skill.name}
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
+                      {LEVEL_LABEL[skill.level]}
+                    </span>
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 function Skills() {
   const { t } = useTranslation();
 
   return (
-    <section
-      id="skills"
-      className="relative py-24 sm:py-28 lg:py-36"
-    >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
-
-      <Container>
-        {/* Header */}
-        <Reveal>
-          <div className="mb-14 sm:mb-18">
-            <span className="section-label">{t("skills.label")}</span>
-            <h2 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl">
-              {t("skills.title")}
-            </h2>
-            <p className="mt-4 max-w-xl text-base text-zinc-400">
-              {t("skills.description")}
-            </p>
-          </div>
-        </Reveal>
-
-        {/* Skill cards grid */}
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {skillCategories.map((category, index) => (
-            <SkillCard
-              key={category.title}
-              category={category}
-              delay={index * 0.08}
+    <section id="skills" className="relative py-24 sm:py-32 lg:py-40">
+      <Container size="wide">
+        <div className="grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+          <div className="lg:col-span-4">
+            <SectionHeading
+              index="02"
+              label={t("skills.label")}
+              title={t("skills.title")}
+              description={t("skills.description")}
             />
-          ))}
+          </div>
+
+          <div className="lg:col-span-7 lg:col-start-6">
+            {skillCategories.map((category, i) => (
+              <SkillRow key={category.title} category={category} index={i} />
+            ))}
+          </div>
         </div>
-
       </Container>
-
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-zinc-800/60 to-transparent" />
     </section>
   );
 }

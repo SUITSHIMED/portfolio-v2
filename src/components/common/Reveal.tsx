@@ -1,18 +1,49 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { EASE } from "@/lib/motion";
 
 interface RevealProps {
   children: ReactNode;
   delay?: number;
+  y?: number;
+  x?: number;
+  duration?: number;
+  blur?: boolean;
+  once?: boolean;
+  className?: string;
 }
 
-export default function Reveal({ children, delay = 0 }: RevealProps) {
+/**
+ * Reveal — scroll-triggered entrance with fade + optional translate and blur.
+ * Content lifts from the given offset. Cheap to use, never over-animated.
+ */
+export default function Reveal({
+  children,
+  delay = 0,
+  y = 28,
+  x = 0,
+  duration = 0.9,
+  blur = false,
+  once = true,
+  className,
+}: RevealProps) {
   return (
     <motion.div
-      initial={{ y: 24, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, delay }}
+      className={className}
+      initial={{
+        opacity: 0,
+        y,
+        x,
+        filter: blur ? "blur(8px)" : "blur(0px)",
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        x: 0,
+        filter: "blur(0px)",
+      }}
+      viewport={{ once, margin: "-10% 0px" }}
+      transition={{ duration, ease: EASE, delay }}
     >
       {children}
     </motion.div>

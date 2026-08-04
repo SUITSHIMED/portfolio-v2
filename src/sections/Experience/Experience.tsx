@@ -1,124 +1,201 @@
-import Container from "@/components/ui/Container";
+import { useRef } from "react";
+import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import Container from "@/components/ui/Container";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { EASE } from "@/lib/motion";
 
-const experiences = [
+interface TimelineItem {
+  group: "education" | "experience";
+  year: string;
+  title: string;
+  company: string;
+  description: string;
+  skills?: string[];
+}
+
+const timeline: TimelineItem[] = [
   {
+    group: "education",
+    year: "2013",
+    title: "Baccalaureate — Science",
+    company: "Education",
+    description:
+      "Earned my Baccalaureate in Science, where I built a rigorous, analytical approach to solving problems.",
+  },
+  {
+    group: "education",
+    year: "2020",
+    title: "Bachelor's Degree (Licence) in Fundamental Biology",
+    company: "University",
+    description:
+      "Graduated with a Bachelor's Degree (Licence) in Fundamental Biology — a scientific background that shaped my analytical mindset before I turned to software development.",
+  },
+  {
+    group: "experience",
+    year: "2023",
+    title: "Teaching Assistant / Children's Educator",
+    company: "Educational Environment",
+    description:
+      "Taught and supervised children in an educational environment — planning learning activities, supporting students in their daily progress, and strengthening communication, patience, organization, and problem-solving skills.",
+    skills: ["Communication", "Organization", "Problem Solving"],
+  },
+  {
+    group: "experience",
+    year: "2024 — 2025",
+    title: "Self-Taught Frontend Developer",
+    company: "Independent Learning",
+    description:
+      "Dedicated to intensive self-learning in modern web development. Built personal projects while mastering HTML, CSS, JavaScript, React, Vite, Tailwind CSS, Git, and responsive design — focused on real-world applications and building a strong development foundation.",
+    skills: ["HTML", "CSS", "JavaScript", "React", "Vite", "Tailwind CSS", "Git"],
+  },
+  {
+    group: "experience",
+    year: "Sep 2025 — Jan 2026",
+    title: "Full Stack Mobile Development Training",
+    company: "Simplon Maghreb",
+    description:
+      "Completed an intensive full-stack mobile development program covering modern JavaScript development, React Native, backend development with Node.js and Express, relational databases with PostgreSQL, Git, Agile collaboration, and mobile application architecture through practical projects.",
+    skills: ["React Native", "JavaScript", "Node.js", "Express", "PostgreSQL", "Git"],
+  },
+  {
+    group: "experience",
     year: "2026",
     title: "Full Stack Mobile Developer",
     company: "Personal Projects",
     description:
       "Designed and developed full-stack mobile applications from concept to deployment using React Native, Expo, Node.js, Express, and PostgreSQL. Focused on authentication, API integration, state management, and responsive user experiences.",
-    skills: [
-      "React Native",
-      "Expo",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "Docker",
-    ],
-  },
-
-  {
-    year: "Sep 2025 - Jan 2026",
-    title: "Full Stack Mobile Development Training",
-    company: "Simplon Maghreb",
-    description:
-      "Completed an intensive full-stack mobile development program covering modern JavaScript development, React Native, backend development with Node.js and Express, relational databases with PostgreSQL, Git, Agile collaboration, and mobile application architecture through practical projects.",
-    skills: [
-      "React Native",
-      "JavaScript",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "Git",
-    ],
-  },
-
-  {
-    year: "2025",
-    title: "Frontend Self-Learning",
-    company: "Independent Learning",
-    description:
-      "Built a solid foundation in frontend development by learning HTML, CSS, JavaScript, React, responsive design, Git, and modern development workflows through personal practice before joining the mobile development program.",
-    skills: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Git",
-      "Responsive Design",
-    ],
+    skills: ["React Native", "Expo", "Node.js", "Express", "PostgreSQL", "Docker"],
   },
 ];
 
-function Experience() {
-  const { t } = useTranslation();
+function TimelineRow({ item }: { item: TimelineItem }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-25% 0px" });
 
   return (
-    <section
-      id="experience"
-      className="bg-black py-20 sm:py-24 lg:py-32"
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-15% 0px" }}
+      transition={{ duration: 0.85, ease: EASE }}
+      className="group relative pl-12 pb-14 last:pb-0 sm:pl-16"
     >
-      <Container>
+      {/* Dot */}
+      <span className="absolute left-0 top-2 flex h-[18px] w-[18px] items-center justify-center">
+        <span
+          className={`absolute inset-0 rounded-full border transition-all duration-500 ${
+            inView ? "border-frost/70" : "border-line"
+          }`}
+        />
+        <span
+          className={`h-[6px] w-[6px] rounded-full transition-all duration-500 ${
+            inView ? "bg-frost shadow-[0_0_12px_rgb(163_171_242/0.6)]" : "bg-faint"
+          }`}
+        />
+      </span>
 
-        <div className="mb-12 sm:mb-16 lg:mb-20">
+      <span className="mono-label text-frost">{item.year}</span>
 
-          <h2 className="mt-3 text-4xl font-bold sm:text-5xl">
-            {t("experience.title")}
-          </h2>
+      <h3 className="mt-3 text-2xl font-semibold tracking-tight text-text sm:text-3xl">
+        {item.title}
+      </h3>
+      <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] text-faint">
+        {item.company}
+      </p>
+      <p className="mt-5 max-w-xl text-[0.95rem] leading-7 text-muted">
+        {item.description}
+      </p>
 
-          <p className="mt-5 max-w-2xl text-sm text-zinc-400 sm:text-base">
-            {t("experience.description")}
-          </p>
-
-        </div>
-
-        <div className="space-y-8">
-
-          {experiences.map((item) => (
-
-            <div
-              key={item.title}
-              className="rounded-2xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8"
+      {item.skills && (
+        <div className="mt-6 flex flex-wrap gap-2">
+          {item.skills.map((skill, i) => (
+            <motion.span
+              key={skill}
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: EASE, delay: 0.08 * i }}
+              className="tag"
             >
-
-              <span className="text-blue-400 font-semibold">
-                {item.year}
-              </span>
-
-              <h3 className="mt-2 text-xl font-bold sm:text-2xl">
-                {item.title}
-              </h3>
-
-              <p className="text-zinc-500 mt-1">
-                {item.company}
-              </p>
-
-              <p className="mt-6 text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
-                {item.description}
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-
-                {item.skills.map((skill) => (
-
-                  <span
-                    key={skill}
-                    className="rounded-full border border-zinc-700 px-4 py-2 text-sm"
-                  >
-                    {skill}
-                  </span>
-
-                ))}
-
-              </div>
-
-            </div>
-
+              {skill}
+            </motion.span>
           ))}
-
         </div>
+      )}
+    </motion.div>
+  );
+}
 
+function Experience() {
+  const { t } = useTranslation();
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 0.75", "end 0.55"],
+  });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    mass: 0.4,
+  });
+
+  const groups = [
+    { key: "education" as const, label: t("experience.groupEducation") },
+    { key: "experience" as const, label: t("experience.groupExperience") },
+  ];
+
+  return (
+    <section id="experience" className="relative py-24 sm:py-32 lg:py-40">
+      <Container size="wide">
+        <div className="grid gap-y-12 lg:grid-cols-12 lg:gap-x-8">
+          <div className="lg:col-span-4">
+            <SectionHeading
+              index="04"
+              label={t("experience.title")}
+              title={t("experience.title")}
+              description={t("experience.description")}
+            />
+          </div>
+
+          <div className="lg:col-span-7 lg:col-start-6">
+            <div ref={listRef} className="relative">
+              {/* Track */}
+              <div
+                className="absolute left-[8px] top-1 bottom-1 w-px bg-line"
+                aria-hidden="true"
+              />
+              {/* Filled progress */}
+              <motion.div
+                style={{ scaleY: progress }}
+                className="absolute left-[8px] top-1 bottom-1 w-px origin-top bg-gradient-to-b from-frost to-violet/60"
+                aria-hidden="true"
+              />
+
+              <div className="space-y-2 pt-1">
+                {groups.map((group, groupIndex) => (
+                  <div key={group.key}>
+                    <div
+                      className={`flex items-center gap-4 pl-12 sm:pl-16 ${
+                        groupIndex > 0 ? "mt-12" : ""
+                      } mb-4`}
+                    >
+                      <span className="mono-label text-frost">{group.label}</span>
+                      <span className="h-px flex-1 bg-line-strong" aria-hidden="true" />
+                    </div>
+                    {timeline
+                      .filter((item) => item.group === group.key)
+                      .map((item) => (
+                        <TimelineRow key={item.title} item={item} />
+                      ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </Container>
     </section>
   );
