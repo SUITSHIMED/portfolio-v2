@@ -19,6 +19,75 @@ export interface ProjectDetail {
 
 export const projectDetails: ProjectDetail[] = [
   {
+    slug: "portfolio",
+    title: "Portfolio V2",
+    category: "Developer Portfolio",
+    year: "2026",
+    role: "Frontend Developer",
+    github: "https://github.com/SUITSHIMED/portfolio-v2",
+
+    overview:
+      "Portfolio V2 is a modern developer portfolio built to highlight projects, skills, and experience in an elegant, responsive single-page experience. It uses React, TypeScript, and Tailwind CSS to deliver fast performance, smooth animations, and dark mode support.",
+
+    architecture:
+      "A single-page React application bootstrapped with Vite and TypeScript. Tailwind CSS v4 handles responsive styling while Framer Motion adds polished reveal animations and transitions. Project content is stored in structured data files and rendered through reusable components.",
+
+    technologies: [
+      "React", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion",
+    ],
+
+    images: [
+      "/images/projects/portfolio/portfolio.png",
+    ],
+
+    features: [
+      {
+        title: "Responsive Portfolio Layout",
+        description: "A mobile-first portfolio design that adapts cleanly to desktop, tablet, and phone screens while keeping content accessible.",
+      },
+      {
+        title: "Project Showcase",
+        description: "Highlights featured work with clear role, technologies, and status information, plus a dedicated project details view.",
+      },
+      {
+        title: "Animated UI",
+        description: "Framer Motion-powered reveal animations and transitions improve polish without sacrificing performance.",
+      },
+      {
+        title: "Structured Content",
+        description: "Project information is managed via reusable data modules, making the portfolio easy to update and extend.",
+      },
+    ],
+
+    challenges: [
+      {
+        challenge: "Organizing project data so content could be reused across both overview and detail pages.",
+        solution: "Created structured data modules for projects and project details, then linked them by slug to avoid duplicate content.",
+      },
+      {
+        challenge: "Balancing animation polish with responsive performance.",
+        solution: "Used lightweight Framer Motion transitions and optimized image loading to keep the UI smooth.",
+      },
+      {
+        challenge: "Ensuring accessible, readable design across light and dark themes.",
+        solution: "Applied consistent typography, semantic headings, and high-contrast visual styles throughout the interface.",
+      },
+    ],
+
+    lessonsLearned: [
+      "Structured content and reusable components simplify portfolio maintenance.",
+      "Framer Motion adds polish without sacrificing performance when used sparingly.",
+      "Designing for both light and dark themes improves the user experience across devices.",
+    ],
+
+    futureImprovements: [
+      "Add a live demo link once the portfolio is deployed to a public hosting platform.",
+      "Expand the portfolio with more project case studies and interactive previews.",
+      "Add a blog or insights section for sharing technical writeups and learning notes.",
+    ],
+  },
+
+  {
     slug: "cardiolog",
     title: "CardioLog",
     category: "Full-Stack Mobile Application",

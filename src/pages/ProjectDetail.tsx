@@ -105,10 +105,18 @@ function ProjectDetail() {
                 {detail.images.map((img, i) => (
                   <div
                     key={i}
-                    className="phone-mockup scale-75 origin-top"
-                    style={{ width: 180, height: 366 }}
+                    className={
+                      detail.slug === "portfolio"
+                        ? "desktop-mockup"
+                        : "phone-mockup scale-75 origin-top"
+                    }
+                    style={
+                      detail.slug === "portfolio"
+                        ? { width: 680, height: 400, maxWidth: "100%" }
+                        : { width: 180, height: 366 }
+                    }
                   >
-                    <div className="phone-screen">
+                    <div className={detail.slug === "portfolio" ? "desktop-screen" : "phone-screen"}>
                       <img
                         src={img}
                         alt={`${detail.title} screenshot ${i + 1}`}
