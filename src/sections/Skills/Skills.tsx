@@ -12,7 +12,7 @@ import {
 import { useTranslation } from "react-i18next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { skillCategories, type SkillCategory, type SkillLevel } from "@/data/skills";
+import { skillCategories, type SkillCategory } from "@/data/skills";
 import { EASE } from "@/lib/motion";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -22,18 +22,6 @@ const ICONS: Record<string, LucideIcon> = {
   Database,
   Wrench,
   Sparkles,
-};
-
-const LEVEL_DOT: Record<SkillLevel, string> = {
-  advanced: "bg-frost",
-  intermediate: "bg-violet",
-  beginner: "bg-faint",
-};
-
-const LEVEL_LABEL: Record<SkillLevel, string> = {
-  advanced: "Advanced",
-  intermediate: "Intermediate",
-  beginner: "Beginner",
 };
 
 function SkillRow({ category, index }: { category: SkillCategory; index: number }) {
@@ -96,13 +84,7 @@ function SkillRow({ category, index }: { category: SkillCategory; index: number 
                     transition={{ duration: 0.35, ease: EASE, delay: 0.05 * i }}
                     className="tag"
                   >
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${LEVEL_DOT[skill.level]}`}
-                    />
                     {skill.name}
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
-                      {LEVEL_LABEL[skill.level]}
-                    </span>
                   </motion.span>
                 ))}
               </div>
