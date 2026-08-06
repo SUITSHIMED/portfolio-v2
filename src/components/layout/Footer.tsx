@@ -52,7 +52,7 @@ function Footer() {
             <div className="text-center md:text-left">
               <p className="text-sm font-medium text-text">Mohamed Lakhrouf</p>
               <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.16em] text-faint">
-                Full Stack Mobile Developer
+                {t("footer.role")}
               </p>
             </div>
           </div>
@@ -90,7 +90,7 @@ function Footer() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:text-text"
           >
-            Back to top
+            {t("footer.backToTop")}
             <span className="flex h-7 w-7 items-center justify-center rounded-full border border-line transition-colors duration-300 group-hover:border-frost/50">
               <ArrowUp
                 size={12}

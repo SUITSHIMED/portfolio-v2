@@ -16,8 +16,8 @@ function Projects() {
             label={t("projects.label")}
             title={
               <>
-                Selected work,{" "}
-                <span className="text-gradient">built end to end</span>
+                {t("projects.title")}{" "}
+                <span className="text-gradient">{t("projects.titleHighlight")}</span>
               </>
             }
             description={t("projects.description")}

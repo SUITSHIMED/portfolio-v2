@@ -14,61 +14,6 @@ interface TimelineItem {
   skills?: string[];
 }
 
-const timeline: TimelineItem[] = [
-  {
-    group: "education",
-    year: "2013",
-    title: "Baccalaureate — Science",
-    company: "Education",
-    description:
-      "Earned my Baccalaureate in Science, where I built a rigorous, analytical approach to solving problems.",
-  },
-  {
-    group: "education",
-    year: "2020",
-    title: "Bachelor's Degree (Licence) in Fundamental Biology",
-    company: "University",
-    description:
-      "Graduated with a Bachelor's Degree (Licence) in Fundamental Biology — a scientific background that shaped my analytical mindset before I turned to software development.",
-  },
-  {
-    group: "experience",
-    year: "2023",
-    title: "Teaching Assistant / Children's Educator",
-    company: "Educational Environment",
-    description:
-      "Taught and supervised children in an educational environment — planning learning activities, supporting students in their daily progress, and strengthening communication, patience, organization, and problem-solving skills.",
-    skills: ["Communication", "Organization", "Problem Solving"],
-  },
-  {
-    group: "experience",
-    year: "2024 — 2025",
-    title: "Self-Taught Frontend Developer",
-    company: "Independent Learning",
-    description:
-      "Dedicated to intensive self-learning in modern web development. Built personal projects while mastering HTML, CSS, JavaScript, React, Vite, Tailwind CSS, Git, and responsive design — focused on real-world applications and building a strong development foundation.",
-    skills: ["HTML", "CSS", "JavaScript", "React", "Vite", "Tailwind CSS", "Git"],
-  },
-  {
-    group: "experience",
-    year: "Sep 2025 — Jan 2026",
-    title: "Full Stack Mobile Development Training",
-    company: "Simplon Maghreb",
-    description:
-      "Completed an intensive full-stack mobile development program covering modern JavaScript development, React Native, backend development with Node.js and Express, relational databases with PostgreSQL, Git, Agile collaboration, and mobile application architecture through practical projects.",
-    skills: ["React Native", "JavaScript", "Node.js", "Express", "PostgreSQL", "Git"],
-  },
-  {
-    group: "experience",
-    year: "2026",
-    title: "Full Stack Mobile Developer",
-    company: "Personal Projects",
-    description:
-      "Designed and developed full-stack mobile applications from concept to deployment using React Native, Expo, Node.js, Express, and PostgreSQL. Focused on authentication, API integration, state management, and responsive user experiences.",
-    skills: ["React Native", "Expo", "Node.js", "Express", "PostgreSQL", "Docker"],
-  },
-];
-
 function TimelineRow({ item }: { item: TimelineItem }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-25% 0px" });
@@ -131,6 +76,25 @@ function TimelineRow({ item }: { item: TimelineItem }) {
 function Experience() {
   const { t } = useTranslation();
   const listRef = useRef<HTMLDivElement>(null);
+
+  const timelineContent = t("experience.timeline", {
+    returnObjects: true,
+  }) as unknown as Array<Omit<TimelineItem, "group" | "year">>;
+
+  const timelineMeta: Array<{ group: TimelineItem["group"]; year: string }> = [
+    { group: "education", year: "2013" },
+    { group: "education", year: "2020" },
+    { group: "experience", year: "2023" },
+    { group: "experience", year: "2024 — 2025" },
+    { group: "experience", year: "Sep 2025 — Jan 2026" },
+    { group: "experience", year: "2026" },
+  ];
+
+  const timeline: TimelineItem[] = timelineContent.map((item, i) => ({
+    ...item,
+    group: timelineMeta[i].group,
+    year: timelineMeta[i].year,
+  }));
 
   const { scrollYProgress } = useScroll({
     target: listRef,

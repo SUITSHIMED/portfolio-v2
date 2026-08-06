@@ -17,6 +17,16 @@ interface ProjectItemProps {
 function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
   const { t } = useTranslation();
   const isBrowser = project.slug === "portfolio";
+  const content = {
+    title: t(`projects.list.${project.slug}.title`),
+    category: t(`projects.list.${project.slug}.category`),
+    role: t(`projects.list.${project.slug}.role`),
+    description: t(`projects.list.${project.slug}.description`),
+    features: t(`projects.list.${project.slug}.features`, {
+      returnObjects: true,
+    }) as unknown as string[],
+  };
+  const difficultyLabel = t(`projects.difficulty.${project.difficulty}`);
   const [imageIndex, setImageIndex] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -79,11 +89,11 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
   const device = isBrowser ? (
     <BrowserMockup
       src={currentImage ?? ""}
-      alt={`${project.title} screenshot`}
+      alt={`${content.title} screenshot`}
       url={project.slug === "portfolio" ? "mohamedalkhrouf.dev" : `${project.slug}.app`}
     />
   ) : (
-    <PhoneMockup src={currentImage ?? ""} alt={`${project.title} screenshot`} />
+    <PhoneMockup src={currentImage ?? ""} alt={`${content.title} screenshot`} />
   );
 
   return (
@@ -112,7 +122,7 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
       >
         <div className="flex items-center gap-4">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-frost">
-            {project.category}
+            {content.category}
           </span>
           <span className="h-px w-8 bg-line-strong" aria-hidden="true" />
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-faint">
@@ -121,14 +131,14 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
         </div>
 
         <h3 className="mt-5 text-3xl font-semibold tracking-tight text-text sm:text-4xl lg:text-[2.75rem] lg:leading-[1.05]">
-          {project.title}
+          {content.title}
         </h3>
 
-        <p className="lede mt-5 max-w-md text-pretty">{project.description}</p>
+        <p className="lede mt-5 max-w-md text-pretty">{content.description}</p>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
           <span className="font-mono text-xs text-faint">
-            Role — <span className="text-muted">{project.role}</span>
+            {t("projects.role")} — <span className="text-muted">{content.role}</span>
           </span>
           <span className="flex items-center gap-2 font-mono text-xs text-faint">
             <span
@@ -136,13 +146,13 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
                 project.status === "completed" ? "bg-frost" : "bg-violet"
               }`}
             />
-            {project.difficulty}
+            {difficultyLabel}
           </span>
         </div>
 
         {/* Features */}
         <ul className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-          {project.features.slice(0, 4).map((feature) => (
+          {content.features.slice(0, 4).map((feature) => (
             <li key={feature} className="flex items-center gap-2.5 text-sm text-muted">
               <Check size={13} className="shrink-0 text-frost" />
               {feature}
@@ -207,7 +217,7 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
           onClick={() => images.length > 0 && setLightbox(true)}
           role="button"
           tabIndex={0}
-          aria-label={`View ${project.title} screenshots`}
+          aria-label={`View ${content.title} screenshots`}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
@@ -236,7 +246,7 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
                 <circle cx="11" cy="11" r="7" />
                 <path d="M21 21l-4.35-4.35" strokeLinecap="round" />
               </svg>
-              Open preview
+              {t("projects.openPreview")}
             </span>
           </div>
         </div>
@@ -294,12 +304,12 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
                 ref={modalRef}
                 role="dialog"
                 aria-modal="true"
-                aria-label={`${project.title} image viewer`}
+                aria-label={`${content.title} image viewer`}
                 className="card overflow-hidden p-2"
               >
                 <div className="relative flex items-center justify-between border-b border-line px-3 py-2.5">
                   <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-faint">
-                    {project.title}
+                    {content.title}
                   </span>
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs text-faint">
@@ -329,7 +339,7 @@ function ProjectItem({ project, reverse = false, index }: ProjectItemProps) {
 
                   <img
                     src={currentImage}
-                    alt={`${project.title} screenshot ${imageIndex + 1}`}
+                    alt={`${content.title} screenshot ${imageIndex + 1}`}
                     className="max-h-[74vh] w-full rounded-lg object-contain"
                   />
 

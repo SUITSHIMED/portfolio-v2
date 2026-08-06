@@ -39,7 +39,7 @@ function Contact() {
         aria-hidden="true"
         className="outline-text pointer-events-none absolute left-1/2 top-10 -translate-x-1/2 select-none text-[26vw] leading-none opacity-[0.08] sm:text-[18vw]"
       >
-        Contact
+        {t("contact.ghost")}
       </span>
 
       <Container size="narrow" className="relative">
@@ -63,10 +63,10 @@ function Contact() {
           <div className="card mt-16 p-6 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-faint">
-                To
+                {t("contact.to")}
               </span>
               <span className="font-mono text-xs text-faint">
-                New conversation
+                {t("contact.newConversation")}
               </span>
             </div>
 
@@ -84,12 +84,12 @@ function Contact() {
                 {copied ? (
                   <>
                     <Check size={12} className="text-frost" />
-                    Copied
+                    {t("contact.copied")}
                   </>
                 ) : (
                   <>
                     <Copy size={12} />
-                    Copy
+                    {t("contact.copy")}
                   </>
                 )}
               </button>
@@ -102,8 +102,7 @@ function Contact() {
                 className="flex h-2 w-2 shrink-0 rounded-full bg-frost"
               />
               <p className="text-sm leading-6 text-muted">
-                Always open to interesting projects, freelance work, and junior
-                opportunities.
+                {t("contact.alwaysOpen")}
               </p>
             </div>
 

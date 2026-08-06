@@ -46,6 +46,26 @@ function ProjectDetail() {
     );
   }
 
+  const content = {
+    title: t(`projectDetail.${slug}.title`),
+    category: t(`projectDetail.${slug}.category`),
+    role: t(`projectDetail.${slug}.role`),
+    overview: t(`projectDetail.${slug}.overview`),
+    architecture: t(`projectDetail.${slug}.architecture`),
+    features: t(`projectDetail.${slug}.features`, {
+      returnObjects: true,
+    }) as unknown as { title: string; description: string }[],
+    challenges: t(`projectDetail.${slug}.challenges`, {
+      returnObjects: true,
+    }) as unknown as { challenge: string; solution: string }[],
+    lessonsLearned: t(`projectDetail.${slug}.lessonsLearned`, {
+      returnObjects: true,
+    }) as unknown as string[],
+    futureImprovements: t(`projectDetail.${slug}.futureImprovements`, {
+      returnObjects: true,
+    }) as unknown as string[],
+  };
+
   const isBrowser = detail.slug === "portfolio";
 
   return (
@@ -78,7 +98,7 @@ function ProjectDetail() {
               transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
               className="flex items-center gap-4"
             >
-              <span className="mono-label text-frost">{detail.category}</span>
+              <span className="mono-label text-frost">{content.category}</span>
               <span className="h-px w-10 bg-line-strong" aria-hidden="true" />
               <span className="mono-label">{detail.year}</span>
             </motion.div>
@@ -89,7 +109,7 @@ function ProjectDetail() {
               transition={{ duration: 0.7, ease: EASE, delay: 0.12 }}
               className="h-display mt-6 text-balance"
             >
-              {detail.title}
+              {content.title}
             </motion.h1>
 
             <motion.div
@@ -100,7 +120,7 @@ function ProjectDetail() {
             >
               <span className="font-mono text-xs text-faint">
                 {t("projectDetail.role")} —{" "}
-                <span className="text-muted">{detail.role}</span>
+                <span className="text-muted">{content.role}</span>
               </span>
             </motion.div>
           </div>
@@ -140,14 +160,14 @@ function ProjectDetail() {
                   <BrowserMockup
                     key={i}
                     src={img}
-                    alt={`${detail.title} screenshot ${i + 1}`}
+                    alt={`${content.title} screenshot ${i + 1}`}
                     className="w-full max-w-2xl"
                   />
                 ) : (
                   <PhoneMockup
                     key={i}
                     src={img}
-                    alt={`${detail.title} screenshot ${i + 1}`}
+                    alt={`${content.title} screenshot ${i + 1}`}
                   />
                 )
               )}
@@ -169,7 +189,7 @@ function ProjectDetail() {
                   {t("projectDetail.overview")}
                 </h2>
                 <p className="mt-5 text-lg leading-8 text-text/85 text-pretty">
-                  {detail.overview}
+                  {content.overview}
                 </p>
               </section>
             </Reveal>
@@ -185,7 +205,7 @@ function ProjectDetail() {
                   {t("projectDetail.architecture")}
                 </h2>
                 <p className="mt-5 border-l border-frost/30 pl-5 text-base leading-8 text-muted">
-                  {detail.architecture}
+                  {content.architecture}
                 </p>
               </section>
             </Reveal>
@@ -201,7 +221,7 @@ function ProjectDetail() {
                   {t("projectDetail.features")}
                 </h2>
                 <div className="mt-6 space-y-3">
-                  {detail.features.map((feat) => (
+                  {content.features.map((feat) => (
                     <div
                       key={feat.title}
                       className="card card-hover flex items-start gap-4 p-5"
@@ -232,7 +252,7 @@ function ProjectDetail() {
                   {t("projectDetail.challenges")}
                 </h2>
                 <div className="mt-6 space-y-3">
-                  {detail.challenges.map((c, i) => (
+                  {content.challenges.map((c, i) => (
                     <div key={i} className="card card-hover p-5">
                       <div className="flex items-start gap-3">
                         <AlertCircle
@@ -273,7 +293,7 @@ function ProjectDetail() {
               <div className="card p-6">
                 <h3 className="mono-label">{t("projectDetail.lessons")}</h3>
                 <ul className="mt-4 space-y-3">
-                  {detail.lessonsLearned.map((lesson) => (
+                  {content.lessonsLearned.map((lesson) => (
                     <li
                       key={lesson}
                       className="flex items-start gap-3 text-sm leading-6 text-muted"
@@ -294,7 +314,7 @@ function ProjectDetail() {
                   {t("projectDetail.future")}
                 </h3>
                 <ul className="mt-4 space-y-3">
-                  {detail.futureImprovements.map((item) => (
+                  {content.futureImprovements.map((item) => (
                     <li
                       key={item}
                       className="flex items-start gap-3 text-sm leading-6 text-muted"

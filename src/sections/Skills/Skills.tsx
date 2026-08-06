@@ -25,6 +25,7 @@ const ICONS: Record<string, LucideIcon> = {
 };
 
 function SkillRow({ category, index }: { category: SkillCategory; index: number }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(index === 0);
   const Icon = ICONS[category.icon] ?? Monitor;
 
@@ -45,13 +46,13 @@ function SkillRow({ category, index }: { category: SkillCategory; index: number 
             <Icon size={16} />
           </span>
           <span className="text-xl font-medium tracking-tight text-text transition-colors duration-300 sm:text-2xl">
-            {category.title}
+            {t(`skills.categories.${category.key}`)}
           </span>
         </span>
 
         <span className="flex items-center gap-4">
           <span className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-faint sm:block">
-            {category.skills.length} tools
+            {category.skills.length} {t("skills.tools")}
           </span>
           <motion.span
             animate={{ rotate: open ? 45 : 0 }}
@@ -114,7 +115,7 @@ function Skills() {
 
           <div className="lg:col-span-7 lg:col-start-6">
             {skillCategories.map((category, i) => (
-              <SkillRow key={category.title} category={category} index={i} />
+              <SkillRow key={category.key} category={category} index={i} />
             ))}
           </div>
         </div>

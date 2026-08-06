@@ -5,15 +5,23 @@ export interface Skill {
   level: SkillLevel;
 }
 
+export type SkillCategoryKey =
+  | "frontend"
+  | "mobile"
+  | "backend"
+  | "database"
+  | "tools"
+  | "ai";
+
 export interface SkillCategory {
-  title: string;
-  icon: string; 
+  key: SkillCategoryKey;
+  icon: string;
   skills: Skill[];
 }
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Frontend",
+    key: "frontend",
     icon: "Monitor",
     skills: [
       { name: "HTML",         level: "advanced" },
@@ -25,7 +33,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Mobile",
+    key: "mobile",
     icon: "Smartphone",
     skills: [
       { name: "React Native", level: "advanced" },
@@ -33,7 +41,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Backend",
+    key: "backend",
     icon: "Server",
     skills: [
       { name: "Node.js",      level: "intermediate" },
@@ -43,7 +51,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Database",
+    key: "database",
     icon: "Database",
     skills: [
       { name: "PostgreSQL",   level: "intermediate" },
@@ -51,7 +59,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Tools & DevOps",
+    key: "tools",
     icon: "Wrench",
     skills: [
       { name: "Git",          level: "advanced" },
@@ -62,7 +70,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "AI & Integrations",
+    key: "ai",
     icon: "Sparkles",
     skills: [
       { name: "Google Gemini", level: "intermediate" },

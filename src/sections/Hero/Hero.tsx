@@ -49,7 +49,7 @@ function Hero() {
               className="availability-pill mb-8"
             >
               <span className="availability-dot" />
-              Open to work
+              {t("hero.availability")}
             </motion.div>
 
             <h1 className="display">
@@ -108,11 +108,11 @@ function Hero() {
 
               <div className="card absolute -bottom-6 left-4 z-20 w-48 p-3.5 sm:left-6">
                 <div className="flex items-center justify-between">
-                  <span className="mono-label">Current</span>
+                  <span className="mono-label">{t("hero.current")}</span>
                   <span className="availability-dot" />
                 </div>
                 <p className="mt-2 text-sm font-medium text-text">
-                  Building mobile & web apps
+                  {t("hero.building")}
                 </p>
                 <p className="mt-0.5 font-mono text-[11px] text-faint">
                   React Native · Node.js
@@ -142,7 +142,7 @@ function Hero() {
               <ArrowUpRight />
             </Button>
             <Button href="#contact" variant="ghost">
-              Get in touch
+              {t("hero.getInTouch")}
             </Button>
           </div>
         </motion.div>
@@ -155,7 +155,7 @@ function Hero() {
           transition={{ duration: 1, delay: 0.9 }}
         >
           <p className="mono-label hidden sm:block">
-            Based in Morocco — Working across time zones
+            {t("hero.based")}
           </p>
 
           <div className="flex items-center gap-2">
@@ -180,7 +180,7 @@ function Hero() {
             href="#about"
             className="group flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted transition-colors hover:text-text"
           >
-            Scroll
+            {t("hero.scroll")}
             <motion.span
               animate={{ y: [0, 5, 0] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
